@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+首页
+{% endblock %}
+
+{% block content %}
+<div class="container py-2">
+    <div class="row" data-masonry='{"percentPosition": true}'>
+        {% for photo in photos %}
+        <div class="col-4 py-2">
+            <div class="card hvr-float-shadow">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#photo-{{ photo.id }}">
+                    <img src="{{ url_for('static', filename=photo.name) }}" alt="" class="card-img">
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% for photo in photos %}
+<!-- Modal -->
+<div class="modal fade" id="photo-{{ photo.id }}">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="{{ url_for('static', filename=photo.name) }}" alt="" class="card-img">
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<!-- 分页代码 -->
+<div class="row justify-content-center py-5">
+    <span class="step-links paginator">
+        {% if page > 1 %}
+        <a href="?page=1" class="paginator prevnext">
+            &laquo;
+        </a>
+        <a href="?page={{ page - 1 }}" class="paginator prevnext">
+            {{ page - 1 }}
+        </a>
+        {% endif %}
+
+        <span class="current">
+            第{{ page }}页
+        </span>
+
+        {% if page < pagination.get_page_count() %}
+        <a href="?page={{ page+1 }}" class="paginator prevnext">
+            {{ page+1 }}
+        </a>
+        <a href="?page={{ page+1 }}" class="paginator prevnext">
+            &raquo;
+        </a>
+        {% endif %}
+    </span>
+</div>
+<style>
+    .paginator {
+        padding-top: 100px;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+    }
+    .prevnext {
+        font-size: x-large;
+    }
+    .current {
+        font-size: xx-large;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
+{% endblock %}

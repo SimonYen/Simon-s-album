@@ -1,0 +1,17 @@
+<!-- 新增上传模态窗 -->
+<div class="modal fade" id="upload">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title">上传图片🖼</h5>
+                <form action="{{url_for('upload')}}" method="post" enctype="multipart/form-data">
+                    <div class="col py-2">
+                        <input class="form-control" type="file" id="images" name="images" multiple="multiple"
+                            accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary">提交🕊</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
