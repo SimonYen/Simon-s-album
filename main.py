@@ -59,11 +59,12 @@ def admin():
 @app.route('/delete/<int:id>')
 def delete(id):
     p = Photo.select().where(Photo.id == id).get()
-    os.remove(os.path.join('.', 'static', p.name))
+    if os.path.isfile(os.path.join('.', 'static', p.name)):
+        os.remove(os.path.join('.', 'static', p.name))
     Photo.delete().where(Photo.id == id).execute()
     flash('删除成功。')
     return redirect(url_for('admin'))
 
 
 if __name__ == '__main__':
-    app.run(debug=False, port=80, host='0.0.0.0')
+    app.run(debug=True, port=8000, host='0.0.0.0')
